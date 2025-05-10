@@ -1,0 +1,1 @@
+docker-compose -p local_database up -d
