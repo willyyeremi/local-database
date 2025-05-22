@@ -1,9 +1,9 @@
-version: '3.8'
+name: local-database
 
 services:
   postgresql:
     image: postgres:latest
-    container_name: local_postgresql
+    container_name: local-postgresql
     environment:
       POSTGRES_DB: local
       POSTGRES_USER: admin
@@ -16,7 +16,7 @@ services:
 
   mysql:
     image: mysql:latest
-    container_name: local_mysql
+    container_name: local-mysql
     environment:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: local
@@ -27,6 +27,21 @@ services:
     volumes:
       - ./data/mysql:/var/lib/mysql
       - ./etc/mysql/initial.sql:/docker-entrypoint-initdb.d/initial.sql:ro
+
+  sqlserver:
+    image: rapidfort/microsoft-sql-server-2019-ib:latest
+    container_name: local-sqlserver
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: Admin!123
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./data/sqlserver:/var/lib/sqlserver
+      # - ./etc/sqlserver/initial.sql:/docker-entrypoint-initdb.d/initial.sql:ro
+
+
+
 
   # oracledb:
   #   image: oracledb:latest
